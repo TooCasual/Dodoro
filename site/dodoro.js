@@ -2,6 +2,7 @@ var express = require('express');
 var handlebars = require('express3-handlebars')
 		.create({defaultLayout:'main'});
 var app = express();
+var fortune = require('./lib/fortune.js');
 
 app.use(express.static(__dirname + '/public'));
 console.log(__dirname + '/public');
@@ -15,9 +16,9 @@ app.get('/', function(req, res) {
 	res.render('home');
 });
 
-var fortunes = ['happy','nice','perfect'];
+
 app.get('/about', function(req, res) {
-	var randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+	var randomFortune = fortune.getFortune();
 	res.render('about',{fortune: randomFortune});
 });
 
