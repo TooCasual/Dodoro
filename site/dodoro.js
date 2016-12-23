@@ -7,6 +7,11 @@ var fortune = require('./lib/fortune.js');
 app.use(express.static(__dirname + '/public'));
 console.log(__dirname + '/public');
 
+app.use(function(req, res, next){
+	res.locals.showTests = app.get('env') !== 'production' && req.query.text === '1';
+	next();
+})
+
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
